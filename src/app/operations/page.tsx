@@ -2,14 +2,11 @@
 
 import { useState } from "react";
 import {
-  Plane,
   Users,
   Settings,
   AlertTriangle,
   CheckCircle,
   Clock,
-  MapPin,
-  Zap,
   RefreshCw,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -182,6 +179,7 @@ const alerts = [
 export default function OperationsPage() {
   const [selectedGate, setSelectedGate] = useState<Gate | null>(null);
   const [selectedResource, setSelectedResource] = useState<string | null>(null);
+  console.log(selectedResource);
 
   const getGateStatusColor = (status: string) => {
     switch (status) {

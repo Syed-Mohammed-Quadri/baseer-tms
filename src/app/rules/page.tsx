@@ -14,7 +14,6 @@ import {
   Trash2,
   Plus,
   Search,
-  Filter,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -332,7 +331,7 @@ export default function RulesPage() {
                   <div className="bg-blue-50 rounded-lg p-3 text-sm">
                     <span className="font-medium text-blue-900">IF</span>
                     <span className="text-blue-700 ml-2">
-                      Aircraft size is "Large"
+                      Aircraft size is Large
                     </span>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-3 text-sm">

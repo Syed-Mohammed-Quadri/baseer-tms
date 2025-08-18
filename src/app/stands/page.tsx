@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Plane,
   Clock,
-  MapPin,
   Settings,
   AlertTriangle,
   CheckCircle,

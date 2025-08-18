@@ -61,7 +61,15 @@ export interface TimeSlot {
   resource: string;
   task: string;
   status: "scheduled" | "active" | "completed" | "conflict";
-  details?: any;
+  details?: {
+    flight?: string;
+    aircraft?: string;
+    passengers?: number;
+    crew?: string[];
+    equipment?: string[];
+    notes?: string;
+    priority?: "high" | "medium" | "low";
+  };
 }
 
 export interface CapacityForecast {

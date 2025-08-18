@@ -102,7 +102,7 @@ export default function ResourceManagementPage() {
                 Unable to Load Resource Management System
               </h3>
               <p className="text-slate-900 mb-6">
-                We're having trouble connecting to the external resource
+                We are having trouble connecting to the external resource
                 management system. This could be due to network issues or the
                 system being temporarily unavailable.
               </p>
