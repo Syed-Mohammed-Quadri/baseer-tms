@@ -19,12 +19,10 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
+  { name: "Stand & Gate Management", href: "/stands", icon: Plane },
+  { name: "Resource Management", href: "/resource-management", icon: Users },
   { name: "Rule Configuration", href: "/rules", icon: Settings },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Resource Management", href: "/resource-management", icon: Users },
-  { name: "Resource Planning", href: "/resource-planning", icon: Calendar },
-  { name: "Operations Center", href: "/operations", icon: MapPin },
-  { name: "Stand & Gate Management", href: "/stands", icon: Plane },
 ];
 
 export default function Sidebar() {
@@ -34,7 +32,7 @@ export default function Sidebar() {
   return (
     <div
       className={cn(
-        "bg-white border-r border-slate-200 flex flex-col transition-all duration-300 sticky top-0 h-screen",
+        "bg-white border-r border-slate-200 flex flex-col transition-all duration-300 h-full",
         collapsed ? "w-16" : "w-64"
       )}
     >
@@ -63,7 +61,7 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4">
+      <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <ul className="space-y-1">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
@@ -94,21 +92,6 @@ export default function Sidebar() {
           })}
         </ul>
       </nav>
-
-      {/* User section */}
-      <div className="p-4 border-t border-slate-200">
-        <div className="flex items-center">
-          <div className="w-8 h-8 bg-slate-300 rounded-full flex items-center justify-center">
-            <span className="text-sm font-medium text-slate-700">RH</span>
-          </div>
-          {!collapsed && (
-            <div className="ml-3">
-              <p className="text-sm font-medium text-slate-700">RUH - RIYADH</p>
-              <p className="text-xs text-slate-500">Administrator</p>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

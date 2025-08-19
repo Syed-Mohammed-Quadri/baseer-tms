@@ -13,8 +13,13 @@ import {
   Plus,
   Minus,
   RefreshCw,
+  Eye,
+  Map,
+  X,
+  List,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import MapVIew from "@/components/stands/MapVIew";
+import ListView from "@/components/stands/ListView";
 
 interface GateData {
   id: string;
@@ -34,126 +39,352 @@ interface GateData {
   nextAvailable?: string;
   utilization: number;
   position: { x: number; y: number };
+  category: "Contact Gates" | "Remote Stands";
+  standType: "Narrow-body" | "Wide-body";
+  bridge?: boolean;
 }
 
 const gatesData: GateData[] = [
+  // Contact Gates (A1-A8)
   {
-    id: "A12",
-    name: "Gate A12",
-    terminal: "A",
-    status: "occupied",
-    capacity: 300,
-    aircraft: {
-      flight: "LH441",
-      type: "A320",
-      registration: "D-AIUE",
-      passengers: 180,
-      etd: "14:30",
-      progress: 75,
-    },
-    utilization: 85,
-    position: { x: 150, y: 100 },
-  },
-  {
-    id: "A15",
-    name: "Gate A15",
-    terminal: "A",
-    status: "turnaround",
-    capacity: 250,
-    aircraft: {
-      flight: "BA892",
-      type: "B737",
-      registration: "G-DOCG",
-      passengers: 156,
-      eta: "15:20",
-      etd: "16:45",
-      progress: 45,
-    },
-    utilization: 72,
-    position: { x: 250, y: 100 },
-  },
-  {
-    id: "A18",
-    name: "Gate A18",
+    id: "A1",
+    name: "A1",
     terminal: "A",
     status: "available",
-    capacity: 400,
-    nextAvailable: "Now",
-    utilization: 60,
-    position: { x: 350, y: 100 },
-  },
-  {
-    id: "A21",
-    name: "Gate A21",
-    terminal: "A",
-    status: "available",
-    capacity: 280,
-    nextAvailable: "Now",
-    utilization: 45,
-    position: { x: 450, y: 100 },
-  },
-  {
-    id: "B08",
-    name: "Gate B08",
-    terminal: "B",
-    status: "maintenance",
-    capacity: 350,
-    nextAvailable: "18:00",
+    capacity: 180,
     utilization: 0,
-    position: { x: 150, y: 250 },
+    position: { x: 70, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A2",
+    name: "A2",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 140, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A3",
+    name: "A3",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 210, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A4",
+    name: "A4",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 280, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A5",
+    name: "A5",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 350, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A6",
+    name: "A6",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 420, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A7",
+    name: "A7",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 490, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "A8",
+    name: "A8",
+    terminal: "A",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 560, y: 180 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+
+  // Remote Stands (B1-B12, green section)
+  {
+    id: "B1",
+    name: "B1",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 70, y: 280 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B2",
+    name: "B2",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 140, y: 280 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B3",
+    name: "B3",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 210, y: 280 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B4",
+    name: "B4",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 280, y: 280 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B5",
+    name: "B5",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 350, y: 280 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B6",
+    name: "B6",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 420, y: 280 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B7",
+    name: "B7",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 70, y: 320 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B8",
+    name: "B8",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 140, y: 320 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B9",
+    name: "B9",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 210, y: 320 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B10",
+    name: "B10",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 280, y: 320 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
   },
   {
     id: "B11",
-    name: "Gate B11",
-    terminal: "B",
-    status: "conflict",
-    capacity: 500,
-    aircraft: {
-      flight: "EK203",
-      type: "A380",
-      registration: "A6-EEZ",
-      passengers: 420,
-      eta: "16:00",
-      progress: 20,
-    },
-    utilization: 95,
-    position: { x: 250, y: 250 },
-  },
-  {
-    id: "B14",
-    name: "Gate B14",
-    terminal: "B",
-    status: "occupied",
-    capacity: 300,
-    aircraft: {
-      flight: "QR401",
-      type: "A350",
-      registration: "A7-ALZ",
-      passengers: 280,
-      etd: "17:15",
-      progress: 60,
-    },
-    utilization: 88,
-    position: { x: 350, y: 250 },
-  },
-  {
-    id: "B17",
-    name: "Gate B17",
+    name: "B11",
     terminal: "B",
     status: "available",
-    capacity: 200,
-    nextAvailable: "Now",
-    utilization: 55,
-    position: { x: 450, y: 250 },
+    capacity: 180,
+    utilization: 0,
+    position: { x: 350, y: 320 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "B12",
+    name: "B12",
+    terminal: "B",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 420, y: 320 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+
+  // Gates (G101-G103)
+  {
+    id: "G101",
+    name: "G101",
+    terminal: "G",
+    status: "available",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 100, y: 450 },
+    category: "Contact Gates",
+    standType: "Narrow-body",
+    bridge: true,
+  },
+  {
+    id: "G102",
+    name: "G102",
+    terminal: "G",
+    status: "occupied",
+    capacity: 300,
+    utilization: 85,
+    position: { x: 200, y: 450 },
+    category: "Contact Gates",
+    standType: "Wide-body",
+    bridge: true,
+    aircraft: {
+      flight: "LH441",
+      type: "A330",
+      registration: "D-AIUE",
+      passengers: 250,
+      etd: "14:30",
+      progress: 75,
+    },
+  },
+  {
+    id: "G103",
+    name: "G103",
+    terminal: "G",
+    status: "available",
+    capacity: 300,
+    utilization: 0,
+    position: { x: 300, y: 450 },
+    category: "Contact Gates",
+    standType: "Wide-body",
+    bridge: true,
+  },
+
+  // Remote Stands (S201, S202)
+  {
+    id: "S201",
+    name: "S201",
+    terminal: "S",
+    status: "maintenance",
+    capacity: 180,
+    utilization: 0,
+    position: { x: 100, y: 520 },
+    category: "Remote Stands",
+    standType: "Narrow-body",
+  },
+  {
+    id: "S202",
+    name: "S202",
+    terminal: "S",
+    status: "available",
+    capacity: 300,
+    utilization: 0,
+    position: { x: 200, y: 520 },
+    category: "Remote Stands",
+    standType: "Wide-body",
+  },
+];
+
+const aircraftQueue = [
+  {
+    id: "SV1903",
+    aircraft: "A320",
+    size: "Size C",
+    reg: "LHR-DXB",
+    time: "14:25",
+    status: "EARLY",
+    capabilities: ["bridge", "gpu", "pca"],
+  },
+  {
+    id: "XY1521",
+    aircraft: "B777-300ER",
+    size: "Size E",
+    reg: "DXB-JFK",
+    time: "16:15",
+    status: "DELAYED",
+    capabilities: ["bridge", "gpu", "pca", "wide-body"],
+  },
+  {
+    id: "F38901",
+    aircraft: "A330-300",
+    size: "Size D",
+    reg: "DXB-DUB",
+    time: "18:30",
+    status: "ONTIME",
+    capabilities: ["bridge", "gpu", "pca"],
   },
 ];
 
 export default function StandsPage() {
-  const [selectedGate, setSelectedGate] = useState<GateData | null>(null);
-  const [viewMode, setViewMode] = useState<"grid" | "map">("grid");
+  const [selectedGate, setSelectedGate] = useState<GateData | null>(
+    gatesData.find((g) => g.id === "S201") || null
+  );
+  const [viewMode, setViewMode] = useState<"map" | "list">("map");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [mapZoom, setMapZoom] = useState(1);
 
   const filteredGates = gatesData.filter((gate) => {
     const matchesStatus =
@@ -168,531 +399,265 @@ export default function StandsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "available":
-        return "bg-green-100 text-green-800 border-green-200";
+        return "bg-green-500";
       case "occupied":
-        return "bg-blue-100 text-blue-800 border-blue-200";
+        return "bg-blue-500";
       case "turnaround":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-yellow-500";
       case "maintenance":
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-purple-500";
       case "conflict":
-        return "bg-red-100 text-red-800 border-red-200";
+        return "bg-red-500";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-gray-500";
     }
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "available":
-        return CheckCircle;
-      case "occupied":
-        return Plane;
-      case "turnaround":
-        return Clock;
-      case "maintenance":
-        return Settings;
-      case "conflict":
-        return AlertTriangle;
-      default:
-        return CheckCircle;
-    }
-  };
-
-  const getGateMapColor = (status: string) => {
-    switch (status) {
-      case "available":
-        return "bg-green-500 border-green-600";
-      case "occupied":
-        return "bg-blue-500 border-blue-600";
-      case "turnaround":
-        return "bg-yellow-500 border-yellow-600";
-      case "maintenance":
-        return "bg-gray-500 border-gray-600";
-      case "conflict":
-        return "bg-red-500 border-red-600";
-      default:
-        return "bg-gray-500 border-gray-600";
-    }
+  const getCategoryColor = (category: string) => {
+    return category === "Contact Gates"
+      ? "bg-blue-100 border-blue-200"
+      : "bg-green-100 border-green-200";
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-4">
+      <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-slate-900">
-              Stand & Gate Management
-            </h1>
-            <p className="text-slate-900 mt-1">
-              Monitor and manage gate assignments, capacity, and operations
-            </p>
-          </div>
-          <div className="flex items-center space-x-4">
-            {/* View Toggle */}
-            <div className="flex items-center border border-slate-200 rounded-lg p-1">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={cn(
-                  "px-3 py-1 text-sm rounded transition-colors",
-                  viewMode === "grid"
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-900 hover:bg-slate-50"
-                )}
-              >
-                Grid
-              </button>
-              <button
-                onClick={() => setViewMode("map")}
-                className={cn(
-                  "px-3 py-1 text-sm rounded transition-colors",
-                  viewMode === "map"
-                    ? "bg-blue-600 text-white"
-                    : "text-slate-900 hover:bg-slate-50"
-                )}
-              >
-                Map
-              </button>
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-gray-800 rounded mr-3 flex items-center justify-center">
+              <Plane className="w-4 h-4 text-white" />
             </div>
-            <button className="flex items-center px-3 py-2 border text-slate-900 border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Refresh
+            <div>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Apron Operations Center
+              </h1>
+              <p className="text-sm text-gray-900">
+                Gate and stand assignment management for aviation operations
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center bg-green-50 text-green-700 px-3 py-1 rounded text-sm">
+              <CheckCircle className="w-4 h-4 mr-1" />
+              IATA Compliant
+            </div>
+            <div className="flex items-center bg-blue-50 text-blue-700 px-3 py-1 rounded text-sm">
+              <Plane className="w-4 h-4 mr-1" />
+              Multi-Airport Ready
+            </div>
+            <button className="bg-gray-800 text-white px-3 py-1 rounded text-sm">
+              Assignment Optimizer
             </button>
           </div>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="bg-white border-b border-slate-200 px-6 py-3">
-        <div className="flex items-center space-x-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search gates, flights, terminals..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 text-slate-900 focus:ring-blue-500"
-            />
+      {/* Search and Filters */}
+      <div className="bg-white border-b border-gray-200 px-6 py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search flights, aircraft, routes... (try 'SV1903' or 'wide-body gates')"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-96 pl-9 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              />
+            </div>
           </div>
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
-          >
-            <option value="all">All Status</option>
-            <option value="available">Available</option>
-            <option value="occupied">Occupied</option>
-            <option value="turnaround">Turnaround</option>
-            <option value="maintenance">Maintenance</option>
-            <option value="conflict">Conflict</option>
-          </select>
-          <button className="flex items-center px-3 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors text-slate-900">
-            <Filter className="w-4 h-4 mr-2" />
-            More Filters
-          </button>
+          <div className="flex items-center space-x-3">
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+            >
+              <option value="all">All Stands</option>
+              <option value="available">Available</option>
+              <option value="occupied">Occupied</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+            <button className="p-2 border border-gray-200 rounded hover:bg-gray-50">
+              <Settings className="w-4 h-4 text-gray-900" />
+            </button>
+            <button className="p-2 border border-gray-200 rounded hover:bg-gray-50">
+              <RefreshCw className="w-4 h-4 text-gray-900" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      {viewMode === "grid" ? (
-        /* Grid View */
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredGates.map((gate) => {
-              const StatusIcon = getStatusIcon(gate.status);
-              return (
-                <div
-                  key={gate.id}
-                  className="bg-white rounded-lg border border-slate-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => setSelectedGate(gate)}
+      <div className="flex">
+        {/* Main Content */}
+        <div className="flex-1">
+          {/* Apron & Gate Layout Header */}
+          <div className="bg-white border-b border-gray-200 px-6 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Map className="w-4 h-4 mr-2 text-gray-900" />
+                <span className="font-medium text-gray-900">
+                  Apron & Gate Layout
+                </span>
+                <span className="ml-2 bg-red-500 w-2 h-2 rounded-full"></span>
+                <span className="ml-1 text-sm text-gray-900">Live</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setViewMode("map")}
+                  className={`p-2 rounded ${
+                    viewMode === "map"
+                      ? "bg-blue-100 text-blue-600"
+                      : "hover:bg-gray-100 text-gray-900"
+                  }`}
                 >
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center">
-                      <StatusIcon className="w-5 h-5 text-slate-400 mr-2" />
-                      <h3 className="font-semibold text-slate-900">
-                        {gate.name}
-                      </h3>
-                    </div>
-                    <button className="p-1 hover:bg-slate-100 rounded">
-                      <MoreVertical className="w-4 h-4 text-slate-400" />
-                    </button>
-                  </div>
+                  <Map className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`p-2 rounded ${
+                    viewMode === "list"
+                      ? "bg-blue-100 text-blue-600"
+                      : "hover:bg-gray-100 text-gray-900"
+                  }`}
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
 
-                  {/* Terminal */}
-                  <div className="text-sm text-slate-900 mb-3">
-                    Terminal {gate.terminal}
-                  </div>
+          {viewMode === "map" ? (
+            /* Map View */
+            <MapVIew selectedGate={selectedGate} />
+          ) : (
+            /* List View */
+            <ListView
+              selectedGate={selectedGate}
+              setSelectedGate={setSelectedGate}
+              gatesData={gatesData}
+            />
+          )}
+        </div>
 
-                  {/* Status */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm text-slate-900">Status:</span>
+        {/* Right Sidebar */}
+        <div className="w-80 bg-white border-l border-gray-200">
+          {/* Aircraft Queue */}
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-medium flex items-center">
+                <Settings className="w-4 h-4 mr-2 text-gray-900" />
+                <p className="text-gray-900">Aircraft Queue</p>
+              </h3>
+              <span className="text-sm text-gray-900">3</span>
+            </div>
+
+            <div className="space-y-3">
+              {aircraftQueue.map((aircraft) => (
+                <div
+                  key={aircraft.id}
+                  className="p-3 bg-gray-50 rounded text-gray-900"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-medium">{aircraft.id}</span>
                     <span
-                      className={cn(
-                        "px-2 py-1 rounded-full text-xs font-medium capitalize border",
-                        getStatusColor(gate.status)
-                      )}
+                      className={`px-2 py-1 rounded text-xs ${
+                        aircraft.status === "EARLY"
+                          ? "bg-blue-100 text-blue-800"
+                          : aircraft.status === "DELAYED"
+                          ? "bg-red-100 text-red-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
                     >
-                      {gate.status}
+                      {aircraft.status}
                     </span>
                   </div>
-
-                  {/* Aircraft Info */}
-                  {gate.aircraft ? (
-                    <div className="space-y-2 mb-4">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-900">Flight:</span>
-                        <span className="text-slate-900 font-medium">
-                          {gate.aircraft.flight}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-900">Aircraft:</span>
-                        <span className="text-slate-900">
-                          {gate.aircraft.type}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-900">Passengers:</span>
-                        <span className="text-slate-900">
-                          {gate.aircraft.passengers}
-                        </span>
-                      </div>
-                      {gate.aircraft.etd && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-slate-900">ETD:</span>
-                          <span className="text-slate-900">
-                            {gate.aircraft.etd}
-                          </span>
-                        </div>
-                      )}
-                      {gate.status === "turnaround" &&
-                        gate.aircraft.progress && (
-                          <div className="mt-3">
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-slate-900">
-                                Turnaround Progress:
-                              </span>
-                              <span className="text-slate-900">
-                                {gate.aircraft.progress}%
-                              </span>
-                            </div>
-                            <div className="w-full bg-slate-200 rounded-full h-2">
-                              <div
-                                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                                style={{ width: `${gate.aircraft.progress}%` }}
-                              />
-                            </div>
-                          </div>
-                        )}
-                    </div>
-                  ) : (
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-900">Capacity:</span>
-                        <span className="text-slate-900">
-                          {gate.capacity} pax
-                        </span>
-                      </div>
-                      {gate.nextAvailable && (
-                        <div className="flex justify-between text-sm mt-2">
-                          <span className="text-slate-900">Available:</span>
-                          <span className="text-green-600 font-medium">
-                            {gate.nextAvailable}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Utilization */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-slate-900">Utilization:</span>
-                      <span className="text-slate-900">
-                        {gate.utilization}%
+                  <div className="text-sm text-gray-900 mb-1">
+                    {aircraft.aircraft} • {aircraft.size}
+                  </div>
+                  <div className="text-sm text-gray-900 mb-2">
+                    {aircraft.reg}
+                  </div>
+                  <div className="text-sm text-gray-900 mb-2">
+                    ⏰ {aircraft.time}
+                  </div>
+                  <div className="flex space-x-1">
+                    {aircraft.capabilities.map((cap) => (
+                      <span
+                        key={cap}
+                        className="px-1 py-0.5 bg-gray-200 text-gray-700 text-xs rounded"
+                      >
+                        {cap}
                       </span>
-                    </div>
-                    <div className="w-full bg-slate-200 rounded-full h-2">
-                      <div
-                        className={cn(
-                          "h-2 rounded-full transition-all duration-300",
-                          gate.utilization >= 90
-                            ? "bg-red-500"
-                            : gate.utilization >= 70
-                            ? "bg-yellow-500"
-                            : "bg-green-500"
-                        )}
-                        style={{ width: `${gate.utilization}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex space-x-2">
-                    <button className="flex-1 text-xs bg-blue-600 text-white py-2 px-3 rounded hover:bg-blue-700 transition-colors">
-                      Assign
-                    </button>
-                    <button className="flex-1 text-xs border border-slate-200 py-2 px-3 text-slate-900 rounded hover:bg-slate-50 transition-colors">
-                      Schedule
-                    </button>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        /* Map View */
-        <div className="flex-1 p-6">
-          <div className="bg-white rounded-lg border border-slate-200 h-[calc(100vh-280px)] relative overflow-hidden">
-            {/* Map Controls */}
-            <div className="absolute top-4 right-4 z-10 flex flex-col space-y-2">
-              <button
-                onClick={() => setMapZoom(Math.min(2, mapZoom + 0.25))}
-                className="p-2 bg-white border border-slate-200 rounded hover:bg-slate-50 transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setMapZoom(1)}
-                className="px-2 py-1 bg-white border border-slate-200 rounded hover:bg-slate-50 transition-colors text-xs"
-              >
-                Reset
-              </button>
-              <button
-                onClick={() => setMapZoom(Math.max(0.5, mapZoom - 0.25))}
-                className="p-2 bg-white border border-slate-200 rounded hover:bg-slate-50 transition-colors"
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Terminal Map */}
-            <div className="absolute inset-0 bg-slate-50 p-8 overflow-auto">
-              <div
-                className="relative"
-                style={{
-                  transform: `scale(${mapZoom})`,
-                  transformOrigin: "top left",
-                  width: `${100 / mapZoom}%`,
-                  height: `${100 / mapZoom}%`,
-                }}
-              >
-                {/* Terminal Buildings */}
-                <div className="absolute top-0 left-0 w-full h-32 bg-blue-100 border-2 border-blue-300 rounded-lg flex items-center justify-center">
-                  <span className="text-xl font-semibold text-blue-700">
-                    Terminal A
-                  </span>
-                </div>
-                <div className="absolute bottom-0 left-0 w-full h-32 bg-green-100 border-2 border-green-300 rounded-lg flex items-center justify-center">
-                  <span className="text-xl font-semibold text-green-700">
-                    Terminal B
-                  </span>
-                </div>
-
-                {/* Gates */}
-                {filteredGates.map((gate) => (
-                  <div
-                    key={gate.id}
-                    className={cn(
-                      "absolute w-24 h-20 rounded-lg border-2 cursor-pointer transition-all hover:scale-105 flex flex-col items-center justify-center text-white font-medium",
-                      getGateMapColor(gate.status),
-                      selectedGate?.id === gate.id && "ring-4 ring-blue-400"
-                    )}
-                    style={{
-                      left: `${gate.position.x}px`,
-                      top: `${gate.position.y}px`,
-                    }}
-                    onClick={() => setSelectedGate(gate)}
-                  >
-                    <div className="text-sm">{gate.name}</div>
-                    {gate.aircraft && (
-                      <div className="text-xs opacity-90">
-                        {gate.aircraft.flight}
-                      </div>
-                    )}
-                  </div>
-                ))}
-
-                {/* Runways (decorative) */}
-                <div className="absolute left-10 top-1/2 w-4/5 h-2 bg-gray-400 transform -translate-y-1/2" />
-                <div className="absolute left-1/2 top-10 w-2 h-4/5 bg-gray-400 transform -translate-x-1/2" />
-              </div>
-            </div>
-
-            {/* Mini Map */}
-            <div className="absolute bottom-4 left-4 w-32 h-24 bg-white border border-slate-200 rounded overflow-hidden">
-              <div className="relative w-full h-full bg-slate-100">
-                {filteredGates.map((gate) => (
-                  <div
-                    key={gate.id}
-                    className={cn(
-                      "absolute w-2 h-2 rounded",
-                      getGateMapColor(gate.status).split(" ")[0]
-                    )}
-                    style={{
-                      left: `${(gate.position.x / 600) * 100}%`,
-                      top: `${(gate.position.y / 400) * 100}%`,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Map Legend */}
-            <div className="absolute bottom-4 right-4 bg-white rounded-lg shadow-lg p-3">
-              <h4 className="text-sm font-medium text-slate-900 mb-2">
-                Gate Status
-              </h4>
-              <div className="space-y-1 text-xs">
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-green-500 rounded mr-2" />
-                  <span>Available</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-blue-500 rounded mr-2" />
-                  <span>Occupied</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-yellow-500 rounded mr-2" />
-                  <span>Turnaround</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-gray-500 rounded mr-2" />
-                  <span>Maintenance</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-3 h-3 bg-red-500 rounded mr-2" />
-                  <span>Conflict</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Selected Gate Details Modal */}
-      {selectedGate && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => setSelectedGate(null)}
-        >
-          <div
-            className="bg-white rounded-lg shadow-xl p-6 max-w-md w-full m-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-slate-900">
-                {selectedGate.name}
-              </h3>
-              <button
-                onClick={() => setSelectedGate(null)}
-                className="text-slate-400 hover:text-slate-900"
-              >
-                ×
-              </button>
-            </div>
+          {/* Stand Details */}
+          {selectedGate && (
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-medium flex items-center">
+                  <Settings className="w-4 h-4 mr-2 text-gray-900" />
+                  <p className="text-gray-900">Stand Details</p>
+                </h3>
+                <button
+                  onClick={() => setSelectedGate(null)}
+                  className="p-1 hover:bg-gray-100 rounded"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
 
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="text-slate-900">Terminal:</span>
-                  <p className="font-medium text-slate-400">
-                    {selectedGate.terminal}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-slate-900">Capacity:</span>
-                  <p className="font-medium text-slate-400">
-                    {selectedGate.capacity} passengers
-                  </p>
-                </div>
-                <div>
-                  <span className="text-slate-900">Status:</span>
-                  <span
-                    className={cn(
-                      "inline-block px-2 py-1 rounded-full text-xs font-medium capitalize border",
-                      getStatusColor(selectedGate.status)
-                    )}
-                  >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-gray-900">
+                    {selectedGate.name}
+                  </span>
+                  <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded font-medium">
                     {selectedGate.status}
                   </span>
                 </div>
-                <div>
-                  <span className="text-slate-900">Utilization:</span>
-                  <p className="font-medium text-slate-400">
-                    {selectedGate.utilization}%
-                  </p>
-                </div>
-              </div>
 
-              {selectedGate.aircraft && (
-                <div className="border-t border-slate-200 pt-4">
-                  <h4 className="font-medium text-slate-900 mb-2 *:">
-                    Current Aircraft
-                  </h4>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-slate-900">Flight:</span>
-                      <p className="font-medium text-slate-400">
-                        {selectedGate.aircraft.flight}
-                      </p>
-                    </div>
-                    <div>
-                      <span className="text-slate-900">Aircraft Type:</span>
-                      <p className="font-medium text-slate-400">
-                        {selectedGate.aircraft.type}
-                      </p>
-                    </div>
-                    <div>
-                      <span className="text-slate-900">Registration:</span>
-                      <p className="font-medium text-slate-400">
-                        {selectedGate.aircraft.registration}
-                      </p>
-                    </div>
-                    <div>
-                      <span className="text-slate-900">Passengers:</span>
-                      <p className="font-medium text-slate-400">
-                        {selectedGate.aircraft.passengers}
-                      </p>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-900">Type:</span>
+                    <div className="font-medium text-gray-900">
+                      Remote Stand
                     </div>
                   </div>
-                  {selectedGate.aircraft.progress && (
-                    <div className="mt-3">
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-slate-900">Progress:</span>
-                        <span className="font-medium">
-                          {selectedGate.aircraft.progress}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-slate-200 rounded-full h-2">
-                        <div
-                          className="bg-blue-600 h-2 rounded-full"
-                          style={{
-                            width: `${selectedGate.aircraft.progress}%`,
-                          }}
-                        />
-                      </div>
+                  <div>
+                    <span className="text-gray-900">Category:</span>
+                    <div className="font-medium text-gray-900 ">
+                      {selectedGate.standType}
                     </div>
-                  )}
+                  </div>
+                  <div>
+                    <span className="text-gray-900">Next Available:</span>
+                    <div className="font-medium text-gray-900">Tomorrow</div>
+                  </div>
                 </div>
-              )}
 
-              <div className="flex space-x-3 pt-4">
-                <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                  Manage Resources
-                </button>
-                <button className="flex-1 border border-slate-200 py-2 px-4 rounded-lg  text-slate-900  hover:bg-slate-50 transition-colors">
-                  View Schedule
-                </button>
+                <div>
+                  <span className="text-gray-900 text-sm">Capabilities:</span>
+                  <div className="flex space-x-1 mt-1">
+                    <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                      gpu
+                    </span>
+                    <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                      pca
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

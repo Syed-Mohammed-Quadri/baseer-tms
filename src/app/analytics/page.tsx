@@ -23,7 +23,13 @@ import {
   Clock,
   DollarSign,
   Filter,
+  Gauge,
+  CheckCircle,
+  Zap,
 } from "lucide-react";
+import TurnaroundPerformance from "@/components/analytics/TurnaroundPerformance";
+import ResourceUtilization from "@/components/analytics/ResourceUtilization";
+import ResourceConflicts from "@/components/analytics/ResourceConflicts";
 
 const timelineData = [
   { time: "00:00", utilization: 45, conflicts: 2, efficiency: 78 },
@@ -59,38 +65,50 @@ const conflictData = [
 
 const kpis = [
   {
-    label: "Average Turnaround",
-    value: "143 min",
+    label: "Resource Utilization",
+    value: "41%",
+    change: 3.2,
+    changeType: "positive" as const,
+    icon: Gauge,
+    iconColor: "text-blue-600",
+  },
+  {
+    label: "Assignment Success Rate",
+    value: "35%",
+    change: 1.8,
+    changeType: "positive" as const,
+    icon: CheckCircle,
+    iconColor: "text-green-600",
+  },
+  {
+    label: "Avg. Turnaround Time",
+    value: "149 min",
     change: -5,
     changeType: "positive" as const,
     icon: Clock,
+    iconColor: "text-green-600",
   },
   {
-    label: "On-Time Performance",
-    value: "91%",
-    change: 3,
-    changeType: "positive" as const,
-    icon: TrendingUp,
-  },
-  {
-    label: "Cost Efficiency",
-    value: "$1.2M",
-    change: -8,
-    changeType: "positive" as const,
-    icon: DollarSign,
-  },
-  {
-    label: "Resource Utilization",
-    value: "87%",
+    label: "Active Resources",
+    value: "51",
     change: 2,
-    changeType: "positive" as const,
-    icon: TrendingUp,
+    changeType: "negative" as const,
+    description: "2 delayed",
+    icon: Zap,
+    iconColor: "text-orange-600",
   },
 ];
 
 export default function AnalyticsPage() {
   const [timeRange, setTimeRange] = useState("today");
   const [selectedMetric, setSelectedMetric] = useState("utilization");
+  const [activeTab, setActiveTab] = useState("turnaround");
+
+  const tabs = [
+    { id: "turnaround", label: "Turnaround Performance" },
+    { id: "utilization", label: "Resource Utilization" },
+    { id: "conflicts", label: "Resource Conflicts" },
+  ];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -134,7 +152,7 @@ export default function AnalyticsPage() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-slate-900 uppercase tracking-wide">
+                  <p className=" font-medium text-slate-900  opacity-80">
                     {kpi.label}
                   </p>
                   <p className="text-3xl font-bold text-slate-900 mt-2">
@@ -158,230 +176,37 @@ export default function AnalyticsPage() {
                     </span>
                   </div>
                 </div>
-                <kpi.icon className="w-8 h-8 text-slate-400" />
+                <kpi.icon className={`w-8 h-8   ${kpi.iconColor} `} />
               </div>
             </div>
           ))}
         </div>
 
-        {/* Charts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Timeline Performance Chart */}
-          <div className="bg-white rounded-lg border border-slate-200 p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-slate-900">
-                Timeline Performance
-              </h3>
-              <select
-                value={selectedMetric}
-                onChange={(e) => setSelectedMetric(e.target.value)}
-                className="text-sm border border-slate-200 rounded px-2 py-1 text-slate-900"
+        <div className="w-full">
+          {/* Tabs Navigation */}
+          <div className="flex border-b border-gray-200 bg-white">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === tab.id
+                    ? "border-blue-500 text-blue-600 bg-blue-50"
+                    : "border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300"
+                }`}
               >
-                <option value="utilization">Utilization</option>
-                <option value="conflicts">Conflicts</option>
-                <option value="efficiency">Efficiency</option>
-              </select>
-            </div>
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={timelineData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="time" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "8px",
-                  }}
-                />
-                <Area
-                  type="monotone"
-                  dataKey={selectedMetric}
-                  stroke="#0ea5e9"
-                  fill="#0ea5e9"
-                  fillOpacity={0.1}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+                {tab.label}
+              </button>
+            ))}
           </div>
 
-          {/* Resource Allocation Chart */}
-          <div className="bg-white rounded-lg border border-slate-200 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 mb-6">
-              Resource Allocation
-            </h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={resourceData} layout="horizontal">
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis type="number" stroke="#64748b" />
-                <YAxis
-                  dataKey="name"
-                  type="category"
-                  stroke="#64748b"
-                  width={80}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "8px",
-                  }}
-                />
-                <Bar dataKey="allocated" fill="#0ea5e9" />
-                <Bar dataKey="available" fill="#e2e8f0" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+          {/* Tab Content */}
+          <div className="bg-white p-6">
+            {activeTab === "turnaround" && <TurnaroundPerformance />}
 
-        {/* Bottom Row Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Monthly Performance Trends */}
-          <div className="lg:col-span-2 bg-white rounded-lg border border-slate-200 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 mb-6">
-              Monthly Performance Trends
-            </h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={performanceData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="month" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "8px",
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="onTime"
-                  stroke="#22c55e"
-                  strokeWidth={2}
-                  name="On-Time %"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="satisfaction"
-                  stroke="#0ea5e9"
-                  strokeWidth={2}
-                  name="Satisfaction %"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="efficiency"
-                  stroke="#f59e0b"
-                  strokeWidth={2}
-                  name="Efficiency %"
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+            {activeTab === "utilization" && <ResourceUtilization />}
 
-          {/* Conflict Distribution */}
-          <div className="bg-white rounded-lg border border-slate-200 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 mb-6">
-              Conflict Distribution
-            </h3>
-            <ResponsiveContainer width="100%" height={200}>
-              <PieChart>
-                <Pie
-                  data={conflictData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={40}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {conflictData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#ffffff",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "8px",
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="mt-4 space-y-2">
-              {conflictData.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between text-sm"
-                >
-                  <div className="flex items-center">
-                    <div
-                      className="w-3 h-3 rounded-full mr-2"
-                      style={{ backgroundColor: item.color }}
-                    />
-                    <span className="text-slate-900">{item.name}</span>
-                  </div>
-                  <span className="font-medium">{item.value}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Summary Table */}
-        <div className="mt-8 bg-white rounded-lg border border-slate-200 overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-200 bg-slate-50">
-            <h3 className="text-lg font-semibold text-slate-900">
-              Resource Performance Summary
-            </h3>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Resource Type
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Utilization
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Efficiency
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Conflicts
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-slate-200">
-                {resourceData.map((resource, index) => (
-                  <tr key={index} className="hover:bg-slate-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
-                      {resource.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                      {Math.round(
-                        (resource.allocated / resource.available) * 100
-                      )}
-                      %
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                      {resource.efficiency}%
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                      {Math.floor(Math.random() * 5)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                        Optimal
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {activeTab === "conflicts" && <ResourceConflicts />}
           </div>
         </div>
       </div>
