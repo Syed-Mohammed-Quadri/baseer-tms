@@ -14,16 +14,16 @@ export default function ResourceManagementPage() {
     process.env.NEXT_PUBLIC_RESOURCE_MANAGEMENT_URL ||
     "https://tms.nabeh.ai/tms/rms?";
 
-  useEffect(() => {
-    // Extended loading time to allow iframe to load
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      setHasError(true);
-      setErrorDetails("Iframe failed to load within timeout period");
-    }, 10000); // 10 seconds
+  // useEffect(() => {
+  //   // Extended loading time to allow iframe to load
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false);
+  //     setHasError(true);
+  //     setErrorDetails("Iframe failed to load within timeout period");
+  //   }, 10000); // 10 seconds
 
-    return () => clearTimeout(timer);
-  }, [retryCount]);
+  //   return () => clearTimeout(timer);
+  // }, [retryCount]);
 
   const handleIframeLoad = () => {
     console.log("Iframe loaded successfully");
