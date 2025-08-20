@@ -1,11 +1,26 @@
 import React from "react";
+import { useThemeStore } from "@/store/theme-store";
 
 const CapacityPlanning = () => {
+  const { theme } = useThemeStore();
+
   return (
-    <div className="mt-8 bg-white rounded-lg border border-slate-200 p-6">
-      <h3 className="text-lg font-semibold text-slate-900 mb-6 flex items-center">
+    <div
+      className={`mt-8 rounded-lg border p-6 transition-colors ${
+        theme === "light"
+          ? "bg-white border-slate-200"
+          : "bg-slate-800 border-slate-700"
+      }`}
+    >
+      <h3
+        className={`text-lg font-semibold mb-6 flex items-center transition-colors ${
+          theme === "light" ? "text-slate-900" : "text-slate-100"
+        }`}
+      >
         <svg
-          className="w-5 h-5 mr-2 text-slate-600"
+          className={`w-5 h-5 mr-2 ${
+            theme === "light" ? "text-slate-600" : "text-slate-400"
+          }`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -22,12 +37,26 @@ const CapacityPlanning = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Terminal A Gates */}
-        <div className="bg-slate-50 rounded-lg p-4">
+        <div
+          className={`rounded-lg p-4 transition-colors ${
+            theme === "light" ? "bg-slate-50" : "bg-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-medium text-slate-900">
+            <h4
+              className={`text-sm font-medium transition-colors ${
+                theme === "light" ? "text-slate-900" : "text-slate-100"
+              }`}
+            >
               Terminal A Gates
             </h4>
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                theme === "light"
+                  ? "bg-red-100 text-red-800"
+                  : "bg-red-900/30 text-red-300"
+              }`}
+            >
               Near Capacity
             </span>
           </div>
@@ -36,14 +65,30 @@ const CapacityPlanning = () => {
             {/* Current */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Current</span>
-                <span className="text-sm font-semibold text-slate-900">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Current
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-slate-900" : "text-slate-100"
+                  }`}
+                >
                   85%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-slate-800 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-slate-800" : "bg-slate-300"
+                  }`}
                   style={{ width: "85%" }}
                 ></div>
               </div>
@@ -52,12 +97,30 @@ const CapacityPlanning = () => {
             {/* Forecast */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Forecast</span>
-                <span className="text-sm font-semibold text-red-600">92%</span>
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Forecast
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-red-600" : "text-red-400"
+                  }`}
+                >
+                  92%
+                </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-red-500 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-red-500" : "bg-red-400"
+                  }`}
                   style={{ width: "92%" }}
                 ></div>
               </div>
@@ -66,10 +129,26 @@ const CapacityPlanning = () => {
         </div>
 
         {/* Ground Crew */}
-        <div className="bg-slate-50 rounded-lg p-4">
+        <div
+          className={`rounded-lg p-4 transition-colors ${
+            theme === "light" ? "bg-slate-50" : "bg-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-medium text-slate-900">Ground Crew</h4>
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <h4
+              className={`text-sm font-medium transition-colors ${
+                theme === "light" ? "text-slate-900" : "text-slate-100"
+              }`}
+            >
+              Ground Crew
+            </h4>
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                theme === "light"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-green-900/30 text-green-300"
+              }`}
+            >
               Optimal
             </span>
           </div>
@@ -78,14 +157,30 @@ const CapacityPlanning = () => {
             {/* Current */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Current</span>
-                <span className="text-sm font-semibold text-slate-900">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Current
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-slate-900" : "text-slate-100"
+                  }`}
+                >
                   91%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-slate-800 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-slate-800" : "bg-slate-300"
+                  }`}
                   style={{ width: "91%" }}
                 ></div>
               </div>
@@ -94,14 +189,30 @@ const CapacityPlanning = () => {
             {/* Forecast */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Forecast</span>
-                <span className="text-sm font-semibold text-green-600">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Forecast
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-green-600" : "text-green-400"
+                  }`}
+                >
                   87%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-green-500 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-green-500" : "bg-green-400"
+                  }`}
                   style={{ width: "87%" }}
                 ></div>
               </div>
@@ -110,12 +221,26 @@ const CapacityPlanning = () => {
         </div>
 
         {/* GSE Equipment */}
-        <div className="bg-slate-50 rounded-lg p-4">
+        <div
+          className={`rounded-lg p-4 transition-colors ${
+            theme === "light" ? "bg-slate-50" : "bg-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-medium text-slate-900">
+            <h4
+              className={`text-sm font-medium transition-colors ${
+                theme === "light" ? "text-slate-900" : "text-slate-100"
+              }`}
+            >
               GSE Equipment
             </h4>
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                theme === "light"
+                  ? "bg-blue-100 text-blue-800"
+                  : "bg-blue-900/30 text-blue-300"
+              }`}
+            >
               Monitor
             </span>
           </div>
@@ -124,14 +249,30 @@ const CapacityPlanning = () => {
             {/* Current */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Current</span>
-                <span className="text-sm font-semibold text-slate-900">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Current
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-slate-900" : "text-slate-100"
+                  }`}
+                >
                   91%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-slate-800 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-slate-800" : "bg-slate-300"
+                  }`}
                   style={{ width: "91%" }}
                 ></div>
               </div>
@@ -140,14 +281,30 @@ const CapacityPlanning = () => {
             {/* Forecast */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Forecast</span>
-                <span className="text-sm font-semibold text-orange-600">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Forecast
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-orange-600" : "text-orange-400"
+                  }`}
+                >
                   94%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-orange-500 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-orange-500" : "bg-orange-400"
+                  }`}
                   style={{ width: "94%" }}
                 ></div>
               </div>
@@ -156,12 +313,26 @@ const CapacityPlanning = () => {
         </div>
 
         {/* Baggage Systems */}
-        <div className="bg-slate-50 rounded-lg p-4">
+        <div
+          className={`rounded-lg p-4 transition-colors ${
+            theme === "light" ? "bg-slate-50" : "bg-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-medium text-slate-900">
+            <h4
+              className={`text-sm font-medium transition-colors ${
+                theme === "light" ? "text-slate-900" : "text-slate-100"
+              }`}
+            >
               Baggage Systems
             </h4>
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                theme === "light"
+                  ? "bg-green-100 text-green-800"
+                  : "bg-green-900/30 text-green-300"
+              }`}
+            >
               Optimal
             </span>
           </div>
@@ -170,14 +341,30 @@ const CapacityPlanning = () => {
             {/* Current */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Current</span>
-                <span className="text-sm font-semibold text-slate-900">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Current
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-slate-900" : "text-slate-100"
+                  }`}
+                >
                   78%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-slate-800 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-slate-800" : "bg-slate-300"
+                  }`}
                   style={{ width: "78%" }}
                 ></div>
               </div>
@@ -186,14 +373,30 @@ const CapacityPlanning = () => {
             {/* Forecast */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-600">Forecast</span>
-                <span className="text-sm font-semibold text-green-600">
+                <span
+                  className={`text-xs transition-colors ${
+                    theme === "light" ? "text-slate-600" : "text-slate-400"
+                  }`}
+                >
+                  Forecast
+                </span>
+                <span
+                  className={`text-sm font-semibold transition-colors ${
+                    theme === "light" ? "text-green-600" : "text-green-400"
+                  }`}
+                >
                   82%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-2">
+              <div
+                className={`w-full rounded-full h-2 transition-colors ${
+                  theme === "light" ? "bg-slate-200" : "bg-slate-600"
+                }`}
+              >
                 <div
-                  className="bg-green-500 h-2 rounded-full"
+                  className={`h-2 rounded-full transition-colors ${
+                    theme === "light" ? "bg-green-500" : "bg-green-400"
+                  }`}
                   style={{ width: "82%" }}
                 ></div>
               </div>

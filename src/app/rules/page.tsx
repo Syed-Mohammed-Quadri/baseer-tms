@@ -1,41 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Settings,
-  Plane,
-  Users,
-  AlertTriangle,
-  Calendar,
-  Star,
-  MoreVertical,
-  Edit3,
-  Copy,
-  Trash2,
-  Plus,
-  Search,
-  BarChart3,
-  TrendingUp,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Settings, BarChart3, TrendingUp } from "lucide-react";
 import RuleConfigurationEngine from "@/components/rules/RuleConfigurationEngine";
 import VersionControlTab from "@/components/rules/VersionControlTab";
 import RuleBuilderTab from "@/components/rules/RuleBuilderTab";
 import StrategyPlannerTab from "@/components/rules/StrategyPlannerTab";
-
-const ruleCategories = [
-  { id: "gate", name: "Gate Rules", icon: Plane, count: 12 },
-  { id: "stand", name: "Stand Rules", icon: Settings, count: 8 },
-  { id: "resource", name: "Resource Allocation", icon: Users, count: 15 },
-  {
-    id: "conflict",
-    name: "Conflict Resolution",
-    icon: AlertTriangle,
-    count: 6,
-  },
-  { id: "scheduling", name: "Scheduling Rules", icon: Calendar, count: 10 },
-  { id: "priority", name: "Priority Rules", icon: Star, count: 4 },
-];
+import { useThemeStore } from "@/store/theme-store";
 
 const mockRules = [
   {
@@ -108,10 +79,12 @@ const mockRules = [
 ];
 
 export default function RulesPage() {
+  const { theme } = useThemeStore();
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedRule, setSelectedRule] = useState<string | null>(null);
+  // const [selectedRule, setSelectedRule] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("rule-builder");
+
   const filteredRules = mockRules.filter((rule) => {
     const matchesCategory =
       selectedCategory === "all" || rule.category === selectedCategory;
@@ -120,19 +93,6 @@ export default function RulesPage() {
       rule.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "high":
-        return "bg-red-100 text-red-800";
-      case "medium":
-        return "bg-yellow-100 text-yellow-800";
-      case "low":
-        return "bg-green-100 text-green-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
 
   const tabs = [
     {
@@ -153,20 +113,38 @@ export default function RulesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
+    <div
+      className={`min-h-screen p-6 transition-colors ${
+        theme === "light" ? "bg-slate-50" : "bg-slate-900"
+      }`}
+    >
       <RuleConfigurationEngine />
-      {/* Tabs */}
 
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="flex border-b border-gray-200">
+      {/* Tabs */}
+      <div
+        className={`rounded-lg border transition-colors ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-slate-800 border-slate-700"
+        }`}
+      >
+        <div
+          className={`flex border-b transition-colors ${
+            theme === "light" ? "border-gray-200" : "border-slate-700"
+          }`}
+        >
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 px-6 py-4 text-sm font-medium border-b-2 transition-colors flex items-center justify-center ${
                 activeTab === tab.id
-                  ? "border-blue-500 text-blue-600 bg-blue-50"
-                  : "border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300"
+                  ? theme === "light"
+                    ? "border-blue-500 text-blue-600 bg-blue-50"
+                    : "border-blue-400 text-blue-300 bg-blue-900/30"
+                  : theme === "light"
+                  ? "border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300"
+                  : "border-transparent text-slate-400 hover:text-slate-100 hover:border-slate-600"
               }`}
             >
               <tab.icon className="w-4 h-4 mr-2" />

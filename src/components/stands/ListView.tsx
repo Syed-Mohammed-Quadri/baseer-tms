@@ -1,5 +1,7 @@
 import { Plane } from "lucide-react";
 import React from "react";
+import { useThemeStore } from "@/store/theme-store";
+
 interface GateData {
   id: string;
   name: string;
@@ -22,6 +24,7 @@ interface GateData {
   standType: "Narrow-body" | "Wide-body";
   bridge?: boolean;
 }
+
 const ListView = ({
   selectedGate,
   setSelectedGate,
@@ -31,9 +34,17 @@ const ListView = ({
   gatesData: GateData[];
   setSelectedGate: React.Dispatch<React.SetStateAction<GateData | null>>;
 }) => {
+  const { theme } = useThemeStore();
+
   return (
     <div className="p-6">
-      <div className="bg-white rounded-lg border border-gray-200">
+      <div
+        className={`rounded-lg border transition-colors ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-slate-800 border-slate-700"
+        }`}
+      >
         <div className="space-y-1">
           {[
             {
@@ -65,10 +76,14 @@ const ListView = ({
           ].map((stand) => (
             <div
               key={stand.id}
-              className={`flex items-center justify-between p-4 hover:bg-gray-50 cursor-pointer text-gray-900 ${
+              className={`flex items-center justify-between p-4 cursor-pointer transition-colors ${
                 selectedGate?.id === stand.id
-                  ? "bg-blue-50 border-l-4 border-blue-500"
-                  : ""
+                  ? theme === "light"
+                    ? "bg-blue-50 border-l-4 border-blue-500"
+                    : "bg-blue-900/30 border-l-4 border-blue-500"
+                  : theme === "light"
+                  ? "hover:bg-gray-50"
+                  : "hover:bg-slate-700"
               }`}
               onClick={() =>
                 setSelectedGate(
@@ -77,27 +92,57 @@ const ListView = ({
               }
             >
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-gray-100 rounded mr-3 flex items-center justify-center">
-                  <Plane className="w-4 h-4 text-gray-600" />
+                <div
+                  className={`w-8 h-8 rounded mr-3 flex items-center justify-center transition-colors ${
+                    theme === "light" ? "bg-gray-100" : "bg-slate-600"
+                  }`}
+                >
+                  <Plane
+                    className={`w-4 h-4 ${
+                      theme === "light" ? "text-gray-600" : "text-slate-300"
+                    }`}
+                  />
                 </div>
                 <div>
-                  <div className="font-medium">{stand.id}</div>
-                  <div className="text-sm text-gray-900">{stand.type}</div>
+                  <div
+                    className={`font-medium ${
+                      theme === "light" ? "text-gray-900" : "text-slate-100"
+                    }`}
+                  >
+                    {stand.id}
+                  </div>
+                  <div
+                    className={`text-sm ${
+                      theme === "light" ? "text-gray-600" : "text-slate-400"
+                    }`}
+                  >
+                    {stand.type}
+                  </div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 {stand.utilization && (
-                  <span className="text-sm text-gray-900">
+                  <span
+                    className={`text-sm ${
+                      theme === "light" ? "text-gray-700" : "text-slate-300"
+                    }`}
+                  >
                     {stand.utilization}
                   </span>
                 )}
                 <span
                   className={`px-2 py-1 rounded text-xs font-medium ${
                     stand.status === "available"
-                      ? "bg-green-100 text-green-800"
+                      ? theme === "light"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-green-900/30 text-green-300"
                       : stand.status === "occupied"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-purple-100 text-purple-800"
+                      ? theme === "light"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-blue-900/30 text-blue-300"
+                      : theme === "light"
+                      ? "bg-purple-100 text-purple-800"
+                      : "bg-purple-900/30 text-purple-300"
                   }`}
                 >
                   {stand.status}

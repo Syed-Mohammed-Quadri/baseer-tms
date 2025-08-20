@@ -11,8 +11,11 @@ import {
   Legend,
   Tooltip,
 } from "recharts";
+import { useThemeStore } from "@/store/theme-store";
 
 const TurnaroundPerformance = () => {
+  const { theme } = useThemeStore();
+
   // Data for the turnaround time performance chart
   const turnaroundData = [
     { time: "00:00", value: 165 },
@@ -77,36 +80,55 @@ const TurnaroundPerformance = () => {
     },
   ];
 
+  // Theme-aware colors
+  const textColor = theme === "light" ? "#666" : "#94a3b8";
+  const gridColor = theme === "light" ? "#f0f0f0" : "#334155";
+  const areaStroke = theme === "light" ? "#9ca3af" : "#64748b";
+  const areaFill = theme === "light" ? "#9ca3af" : "#64748b";
+
   return (
     <div className="space-y-8">
       {/* Turnaround Time Performance Chart */}
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">
+      <div
+        className={`p-6 rounded-lg border transition-colors ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-slate-800 border-slate-700"
+        }`}
+      >
+        <h3
+          className={`text-lg font-semibold mb-6 transition-colors ${
+            theme === "light" ? "text-gray-900" : "text-slate-100"
+          }`}
+        >
           Turnaround Time Performance
         </h3>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={turnaroundData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
               <XAxis
                 dataKey="time"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: "#666" }}
+                tick={{ fontSize: 12, fill: textColor }}
               />
               <YAxis
                 domain={[0, 220]}
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: "#666" }}
+                tick={{ fontSize: 12, fill: textColor }}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "white",
-                  border: "1px solid #e5e7eb",
+                  backgroundColor: theme === "light" ? "white" : "#1e293b",
+                  border:
+                    theme === "light"
+                      ? "1px solid #e5e7eb"
+                      : "1px solid #475569",
                   borderRadius: "8px",
                   boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                  color: "black",
+                  color: theme === "light" ? "black" : "white",
                 }}
                 labelFormatter={(value) => `Time: ${value}`}
                 formatter={(value) => [`${value} min`, "Turnaround Time"]}
@@ -114,9 +136,9 @@ const TurnaroundPerformance = () => {
               <Area
                 type="monotone"
                 dataKey="value"
-                stroke="#9ca3af"
+                stroke={areaStroke}
                 strokeWidth={2}
-                fill="#9ca3af"
+                fill={areaFill}
                 fillOpacity={0.6}
               />
             </AreaChart>
@@ -125,36 +147,55 @@ const TurnaroundPerformance = () => {
       </div>
 
       {/* Resource Allocation by Type Chart */}
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">
+      <div
+        className={`p-6 rounded-lg border transition-colors ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-slate-800 border-slate-700"
+        }`}
+      >
+        <h3
+          className={`text-lg font-semibold mb-6 transition-colors ${
+            theme === "light" ? "text-gray-900" : "text-slate-100"
+          }`}
+        >
           Resource Allocation by Type
         </h3>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={resourceAllocationData} barCategoryGap="20%">
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
               <XAxis
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: "#666" }}
+                tick={{ fontSize: 12, fill: textColor }}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: "#666" }}
+                tick={{ fontSize: 12, fill: textColor }}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "white",
-                  border: "1px solid #e5e7eb",
+                  backgroundColor: theme === "light" ? "white" : "#1e293b",
+                  border:
+                    theme === "light"
+                      ? "1px solid #e5e7eb"
+                      : "1px solid #475569",
                   borderRadius: "8px",
                   boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                  color: "black",
+                  color: theme === "light" ? "black" : "white",
                 }}
                 formatter={(value, name) => [value, name]}
               />
-              <Legend wrapperStyle={{ paddingTop: "20px" }} iconType="circle" />
+              <Legend
+                wrapperStyle={{
+                  paddingTop: "20px",
+                  color: textColor,
+                }}
+                iconType="circle"
+              />
               <Bar dataKey="Confirmed" stackId="a" fill="#10b981" />
               <Bar dataKey="Planned" stackId="a" fill="#3b82f6" />
               <Bar dataKey="Delayed" stackId="a" fill="#ef4444" />

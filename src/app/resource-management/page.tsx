@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  AlertTriangle,
-  RefreshCw,
-  ExternalLink,
-  Shield,
-  Info,
-} from "lucide-react";
+import { RefreshCw, ExternalLink, Shield, Info } from "lucide-react";
 
 export default function ResourceManagementPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +12,7 @@ export default function ResourceManagementPage() {
   // Access the environment variable with NEXT_PUBLIC_ prefix
   const iframeUrl =
     process.env.NEXT_PUBLIC_RESOURCE_MANAGEMENT_URL ||
-    "http://14.194.41.182/tms/login";
+    "https://tms.nabeh.ai/tms/rms?";
 
   useEffect(() => {
     // Extended loading time to allow iframe to load

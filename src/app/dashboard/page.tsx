@@ -3,19 +3,15 @@
 import { useState } from "react";
 import {
   TrendingUp,
-  TrendingDown,
   AlertTriangle,
   CheckCircle,
-  Clock,
   Plane,
-  Users,
-  MapPin,
-  Timer,
   Gauge,
 } from "lucide-react";
 import ActiveResourceConflicts from "@/components/dashboard/ActiveResourceConflicts";
 import ResourceUtilization from "@/components/dashboard/ResourceUtilization";
 import CapacityPlanning from "@/components/dashboard/CapacityPlanning";
+import { useThemeStore } from "@/store/theme-store";
 
 const kpis = [
   {
@@ -25,7 +21,7 @@ const kpis = [
     changeType: null,
     description: "Optimal efficiency",
     icon: Gauge,
-    iconColor: "text-blue-600",
+    iconColor: "text-blue-600 dark:text-blue-400",
   },
   {
     label: "Active Conflicts",
@@ -34,7 +30,7 @@ const kpis = [
     changeType: null,
     description: "2 resolved today",
     icon: AlertTriangle,
-    iconColor: "text-red-600",
+    iconColor: "text-red-600 dark:text-red-400",
   },
   {
     label: "Capacity Score",
@@ -43,7 +39,7 @@ const kpis = [
     changeType: null,
     description: "Above target",
     icon: TrendingUp,
-    iconColor: "text-green-600",
+    iconColor: "text-green-600 dark:text-green-400",
   },
   {
     label: "Resource Availability",
@@ -52,90 +48,24 @@ const kpis = [
     changeType: null,
     description: "156 of 166 active",
     icon: CheckCircle,
-    iconColor: "text-blue-600",
+    iconColor: "text-blue-600 dark:text-blue-400",
   },
 ];
-
-// Dummy data for Resource Utilization chart
-const utilizationData = [
-  { time: "00:00", utilization: 45 },
-  { time: "02:00", utilization: 38 },
-  { time: "04:00", utilization: 32 },
-  { time: "06:00", utilization: 55 },
-  { time: "08:00", utilization: 78 },
-  { time: "10:00", utilization: 85 },
-  { time: "12:00", utilization: 92 },
-  { time: "14:00", utilization: 88 },
-  { time: "16:00", utilization: 95 },
-  { time: "18:00", utilization: 87 },
-  { time: "20:00", utilization: 76 },
-  { time: "22:00", utilization: 65 },
-];
-
-const recentActivities = [
-  {
-    id: 1,
-    type: "conflict_resolved",
-    message: "Gate A12 conflict resolved automatically",
-    timestamp: "2 minutes ago",
-    icon: CheckCircle,
-    color: "text-green-600",
-  },
-  {
-    id: 2,
-    type: "resource_assigned",
-    message: "Ground crew team 7 assigned to Gate B15",
-    timestamp: "5 minutes ago",
-    icon: Plane,
-    color: "text-blue-600",
-  },
-  {
-    id: 3,
-    type: "alert",
-    message: "High priority: Equipment shortage detected",
-    timestamp: "12 minutes ago",
-    icon: AlertTriangle,
-    color: "text-yellow-600",
-  },
-  {
-    id: 4,
-    type: "maintenance",
-    message: "Gate C08 maintenance completed",
-    timestamp: "25 minutes ago",
-    icon: CheckCircle,
-    color: "text-green-600",
-  },
-];
-
-const quickActionStats = {
-  conflicts: {
-    total: 5,
-    critical: 2,
-    resolvedToday: 12,
-  },
-  scheduling: {
-    pendingRequests: 8,
-    completedToday: 34,
-    efficiency: 94,
-  },
-  operations: {
-    activeGates: 42,
-    delayedFlights: 3,
-    onTimePerformance: 89,
-  },
-};
 
 export default function DashboardPage() {
   const [timeRange, setTimeRange] = useState("today");
+  const { theme } = useThemeStore();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-4">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 transition-colors">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900">Dashboard</h1>
-            <p className="text-slate-900 mt-1">
+            <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 transition-colors">
+              Dashboard
+            </h1>
+            <p className="text-slate-600 dark:text-slate-400 mt-1 transition-colors">
               Real-time resource optimization and capacity management
             </p>
           </div>
@@ -143,7 +73,11 @@ export default function DashboardPage() {
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 text-slate-900 focus:ring-blue-500"
+              className={`border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                theme === "light"
+                  ? "border-slate-200 bg-white text-slate-900"
+                  : "border-slate-600 bg-slate-700 text-slate-100"
+              }`}
             >
               <option value="today">Today</option>
               <option value="week">This Week</option>
@@ -160,37 +94,17 @@ export default function DashboardPage() {
           {kpis.map((kpi, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg border border-slate-200 p-6 shadow-sm flex justify-between"
+              className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-6 shadow-sm flex justify-between transition-colors"
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-slate-900 uppercase tracking-wide">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 uppercase tracking-wide transition-colors">
                     {kpi.label}
                   </p>
-                  <p className="text-3xl font-bold text-slate-900 mt-2">
+                  <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-2 transition-colors">
                     {kpi.value}
                   </p>
-                  {/* <div className="flex items-center mt-2">
-                    {kpi.changeType === "positive" ? (
-                      <TrendingUp className="w-4 h-4 text-green-600 mr-1" />
-                    ) : (
-                      <TrendingDown className="w-4 h-4 text-red-600 mr-1" />
-                    )}
-                    <span
-                      className={`text-sm font-medium ${
-                        kpi.changeType === "positive"
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {kpi.change > 0 ? "+" : ""}
-                      {kpi.change}%
-                    </span>
-                    <span className="text-sm text-slate-500 ml-2">
-                      vs yesterday
-                    </span>
-                  </div> */}
-                  <p className="text-sm text-slate-900 mt-1">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 transition-colors">
                     {kpi.description}
                   </p>
                 </div>
@@ -199,7 +113,9 @@ export default function DashboardPage() {
               <div>
                 {kpi.icon && (
                   <div className="mt-4">
-                    <kpi.icon className={`w-8 h-8 ${kpi.iconColor}`} />
+                    <kpi.icon
+                      className={`w-8 h-8 ${kpi.iconColor} transition-colors`}
+                    />
                   </div>
                 )}
               </div>
