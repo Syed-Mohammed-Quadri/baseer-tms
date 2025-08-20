@@ -40,14 +40,27 @@ export default function Sidebar() {
       <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
         {!collapsed && (
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-500 dark:bg-blue-600 rounded-lg flex items-center justify-center">
-              <LayoutDashboard className="w-5 h-5 text-white" />
+            <div
+              className={cn(
+                "w-8 h-8 rounded-lg flex items-center justify-center",
+                theme === "light"
+                  ? "bg-white border border-slate-600"
+                  : "bg-blue-500 dark:bg-blue-600"
+              )}
+            >
+              <Plane
+                className={cn(
+                  "w-5 h-5",
+                  theme === "light" ? "fill-black text-black" : "text-white"
+                )}
+              />
             </div>
             <span className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               Baseer TMS
             </span>
           </div>
         )}
+
         <button
           onClick={() => setCollapsed(!collapsed)}
           className={`p-1.5 rounded-md transition-colors ${
