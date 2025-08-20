@@ -520,20 +520,42 @@ export default function StandsPage() {
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
-                theme === "light"
-                  ? "border-gray-200 bg-white text-gray-900"
-                  : "border-slate-600 bg-slate-700 text-slate-100"
-              }`}
-            >
-              <option value="all">All Stands</option>
-              <option value="available">Available</option>
-              <option value="occupied">Occupied</option>
-              <option value="maintenance">Maintenance</option>
-            </select>
+            <div className="relative inline-block">
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className={`appearance-none border rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                  theme === "light"
+                    ? "border-gray-200 bg-white text-gray-900"
+                    : "border-slate-600 bg-slate-700 text-slate-100"
+                }`}
+              >
+                <option value="all">All Stands</option>
+                <option value="available">Available</option>
+                <option value="occupied">Occupied</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+
+              {/* Custom Arrow */}
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <svg
+                  className={`w-4 h-4 ${
+                    theme === "light" ? "text-gray-500" : "text-gray-400"
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </div>
+
             <button
               className={`p-2 border rounded transition-colors ${
                 theme === "light"

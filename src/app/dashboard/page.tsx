@@ -69,11 +69,11 @@ export default function DashboardPage() {
               Real-time resource optimization and capacity management
             </p>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="relative">
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className={`border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+              className={`appearance-none border rounded-lg pl-3 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
                 theme === "light"
                   ? "border-slate-200 bg-white text-slate-900"
                   : "border-slate-600 bg-slate-700 text-slate-100"
@@ -84,6 +84,22 @@ export default function DashboardPage() {
               <option value="month">This Month</option>
               <option value="custom">Custom</option>
             </select>
+            {/* Custom arrow */}
+            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>

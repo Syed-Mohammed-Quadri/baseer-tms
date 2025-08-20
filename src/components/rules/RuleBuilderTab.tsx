@@ -222,18 +222,39 @@ const RuleBuilderTab = () => {
               >
                 Rule Type
               </label>
-              <select
-                value={ruleType}
-                onChange={(e) => setRuleType(e.target.value)}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
-                  theme === "light"
-                    ? "border-gray-200 text-gray-900 bg-white"
-                    : "border-slate-600 text-slate-100 bg-slate-700"
-                }`}
-              >
-                <option value="Soft Rule">Soft Rule</option>
-                <option value="Hard Rule">Hard Rule</option>
-              </select>
+              <div className="relative w-full">
+                <select
+                  value={ruleType}
+                  onChange={(e) => setRuleType(e.target.value)}
+                  className={`appearance-none w-full px-3 py-2 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                    theme === "light"
+                      ? "border-gray-200 text-gray-900 bg-white"
+                      : "border-slate-600 text-slate-100 bg-slate-700"
+                  }`}
+                >
+                  <option value="Soft Rule">Soft Rule</option>
+                  <option value="Hard Rule">Hard Rule</option>
+                </select>
+
+                {/* Custom Arrow */}
+                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                  <svg
+                    className={`w-4 h-4 ${
+                      theme === "light" ? "text-gray-500" : "text-gray-400"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
             <button
               className={`w-full flex items-center justify-center px-4 py-2 text-white rounded-lg transition-colors ${

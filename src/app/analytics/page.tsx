@@ -96,20 +96,42 @@ export default function AnalyticsPage() {
             </p>
           </div>
           <div className="flex items-center space-x-4">
-            <select
-              value={timeRange}
-              onChange={(e) => setTimeRange(e.target.value)}
-              className={`border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
-                theme === "light"
-                  ? "border-slate-200 text-slate-900 bg-white"
-                  : "border-slate-600 text-slate-100 bg-slate-700"
-              }`}
-            >
-              <option value="today">Today</option>
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
-              <option value="quarter">This Quarter</option>
-            </select>
+            <div className="relative inline-block">
+              <select
+                value={timeRange}
+                onChange={(e) => setTimeRange(e.target.value)}
+                className={`appearance-none border rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                  theme === "light"
+                    ? "border-slate-200 text-slate-900 bg-white"
+                    : "border-slate-600 text-slate-100 bg-slate-700"
+                }`}
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="quarter">This Quarter</option>
+              </select>
+
+              {/* Custom Arrow */}
+              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                <svg
+                  className={`w-4 h-4 ${
+                    theme === "light" ? "text-gray-500" : "text-gray-400"
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </div>
+
             <button
               className={`flex items-center px-3 py-2 border rounded-lg transition-colors ${
                 theme === "light"
