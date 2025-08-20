@@ -81,10 +81,11 @@ const TurnaroundPerformance = () => {
   ];
 
   // Theme-aware colors
+  // Theme-aware colors
   const textColor = theme === "light" ? "#666" : "#94a3b8";
   const gridColor = theme === "light" ? "#f0f0f0" : "#334155";
-  const areaStroke = theme === "light" ? "#9ca3af" : "#64748b";
-  const areaFill = theme === "light" ? "#9ca3af" : "#64748b";
+  const areaStroke = theme === "light" ? "#9ca3af" : "#3b82f6"; // Blue stroke for dark theme
+  const areaFill = theme === "light" ? "#9ca3af" : "#3b82f6"; // Blue fill for dark theme
 
   return (
     <div className="space-y-8">

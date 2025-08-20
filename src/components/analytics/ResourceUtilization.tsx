@@ -24,7 +24,7 @@ const ResourceUtilization = () => {
   // Theme-aware colors
   const textColor = theme === "light" ? "#9ca3af" : "#94a3b8";
   const gridColor = theme === "light" ? "#f0f0f0" : "#334155";
-  const barFill = theme === "light" ? "#1f2937" : "#64748b";
+  const barFill = theme === "light" ? "#1f2937" : "#3b82f6"; // Blue bars for dark theme
 
   return (
     <div className="space-y-8">
@@ -112,6 +112,7 @@ const ResourceUtilization = () => {
             </div>
 
             {/* Progress Bar */}
+            {/* Progress Bar */}
             <div className="mb-4">
               <div
                 className={`w-full rounded-full h-2 transition-colors ${
@@ -120,7 +121,7 @@ const ResourceUtilization = () => {
               >
                 <div
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    theme === "light" ? "bg-gray-800" : "bg-slate-300"
+                    theme === "light" ? "bg-gray-800" : "bg-blue-500"
                   }`}
                   style={{ width: `${resource.value}%` }}
                 />
